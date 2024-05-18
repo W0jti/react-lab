@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import "milligram";
 import {useState} from "react";
+import LoginForm from "./LoginForm";
 
 function App() {
     const [email, setEmail] = useState("");
@@ -11,11 +12,18 @@ function App() {
         setEmail(event.target.value);
     }
 
+    function logout(){
+        setIsAuthenticated(false);
+        setEmail("");
+    }
+
     let content;
+    let login;
+
     if (isAuthenticated) {
         content = <div>
             <h2>Witaj {email}!</h2>
-            <button onClick={() => setIsAuthenticated(false)}>Sign out</button>
+            <button onClick={logout}>Sign out</button>
 
         </div>
     } else {
@@ -25,6 +33,7 @@ function App() {
                    onChange={handleChange}
             />
             <button onClick={() => setIsAuthenticated(true)}>Sign in</button>
+            <LoginForm onLogin={login}/>
         </div>
     }
 
